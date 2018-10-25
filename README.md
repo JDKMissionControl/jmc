@@ -1,3 +1,11 @@
+# THIS IS A TEST IMPORT
+
+Don't use this repo for anything. Please instead clone the official Mercurial repository:
+
+```bash
+hg clone http://hg.openjdk.java.net/jmc/jmc/
+```
+
 # Mission Control
 
 Mission Control is an open source production time profiling and diagnostics tool for Java.
