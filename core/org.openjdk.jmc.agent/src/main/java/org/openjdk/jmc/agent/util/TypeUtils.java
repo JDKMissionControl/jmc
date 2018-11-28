@@ -32,17 +32,22 @@
  */
 package org.openjdk.jmc.agent.util;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.security.ProtectionDomain;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.openjdk.jmc.agent.Parameter;
-import org.openjdk.jmc.agent.jfr.impl.JFRUtils;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.openjdk.jmc.agent.Agent;
+import org.openjdk.jmc.agent.Parameter;
+import org.openjdk.jmc.agent.jfr.impl.JFRUtils;
 
 import sun.misc.Unsafe;
 
@@ -60,6 +65,18 @@ public final class TypeUtils {
 	public static final Type STRING_TYPE = Type.getType("Ljava/lang/String;"); //$NON-NLS-1$
 
 	public static final Object STRING_INTERNAL_NAME = "java/lang/String"; //$NON-NLS-1$
+
+	private static final Object UNSAFE;
+	private static final Method UNSAFE_DEFINE_CLASS_METHOD;
+	private static final Object LOOKUP;
+	private static final Method LOOKUP_DEFINE_CLASS_METHOD;
+
+	static {
+		UNSAFE = getUnsafe();
+		UNSAFE_DEFINE_CLASS_METHOD = getUnsafeDefineClassMethod(UNSAFE);
+		LOOKUP = getLookup();
+		LOOKUP_DEFINE_CLASS_METHOD = getLookupDefineClassMethod(LOOKUP);
+	}
 
 	/**
 	 * The file extension for java source files (.java).
@@ -213,18 +230,6 @@ public final class TypeUtils {
 		return fqcn;
 	}
 
-	public static Unsafe getUnsafe() {
-		// Lovely, but this seems to be the only way
-		try {
-			Field f = Unsafe.class.getDeclaredField("theUnsafe"); //$NON-NLS-1$
-			f.setAccessible(true);
-			return (Unsafe) f.get(null);
-		} catch (Exception e) {
-			Logger.getLogger(JFRUtils.class.getName()).log(Level.SEVERE, "Could not access Unsafe!", e); //$NON-NLS-1$
-		}
-		return null;
-	}
-
 	public static void stringify(MethodVisitor mv, Parameter param, Type argumentType) {
 		mv.visitMethodInsn(Opcodes.INVOKESTATIC, INAME, "toString", //$NON-NLS-1$
 				"(Ljava/lang/Object;)Ljava/lang/String;", false); //$NON-NLS-1$
@@ -255,5 +260,78 @@ public final class TypeUtils {
 	 */
 	public static String parameterize(String className) {
 		return "L" + className + ";"; //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	public static Class<?> defineClass(
+		String eventClassName, byte[] eventClass, int i, int length, ClassLoader definingClassLoader,
+		ProtectionDomain protectionDomain) {
+		if (UNSAFE_DEFINE_CLASS_METHOD != null) {
+			return defineClassPre11(eventClassName, eventClass, i, length, definingClassLoader, protectionDomain);
+		} else {
+			return defineClass11(eventClassName, eventClass);
+		}
+	}
+
+	private static Object getUnsafe() {
+		// Lovely, but this seems to be the only way
+		try {
+			Field f = Unsafe.class.getDeclaredField("theUnsafe"); //$NON-NLS-1$
+			f.setAccessible(true);
+			return f.get(null);
+		} catch (Exception e) {
+			Logger.getLogger(JFRUtils.class.getName()).log(Level.SEVERE, "Could not access Unsafe!", e); //$NON-NLS-1$
+		}
+		return null;
+	}
+
+	private static Method getUnsafeDefineClassMethod(Object unsafe) {
+		try {
+			return unsafe.getClass().getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class,
+					ClassLoader.class, ProtectionDomain.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			return null;
+		}
+	}
+
+	private static Object getLookup() {
+		return MethodHandles.lookup();
+	}
+
+	private static Method getLookupDefineClassMethod(Object lookup) {
+		try {
+			return LOOKUP.getClass().getDeclaredMethod("defineClass", byte[].class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			return null;
+		}
+	}
+
+	private static Class<?> defineClass11(String className, byte[] eventClass) {
+		// We're basically screwed in JDK 11 - lookup() is caller sensitive, and the privateLookupIn version requires
+		// access to the class that we're instrumenting - i.e. it will not have been defined yet.
+		// 
+		//   MethodHandles.Lookup privateLookup = MethodHandles.privateLookupIn(/*Class not available yet!*/, lookup);
+		// 
+		// Once https://bugs.openjdk.java.net/browse/JDK-8200559 is fixed, use a better way of defining the class 
+		// in the appropriate class loader / protection domain. As it is, we will keep leaking classes, and we may
+		// not even be able to reach them.
+
+		try {
+			return (Class<?>) LOOKUP_DEFINE_CLASS_METHOD.invoke(LOOKUP, eventClass);
+		} catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+			Agent.getLogger().log(Level.SEVERE, "Failed to dynamically define the class " + className, e); //$NON-NLS-1$
+		}
+		return null;
+	}
+
+	private static Class<?> defineClassPre11(
+		String eventClassName, byte[] eventClass, int i, int length, ClassLoader definingClassLoader,
+		ProtectionDomain protectionDomain) {
+		try {
+			return (Class<?>) UNSAFE_DEFINE_CLASS_METHOD.invoke(UNSAFE, eventClassName, eventClass, i, length,
+					definingClassLoader, protectionDomain);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			Agent.getLogger().log(Level.SEVERE, "Failed to dynamically define the class " + eventClassName, e); //$NON-NLS-1$
+		}
+		return null;
 	}
 }
