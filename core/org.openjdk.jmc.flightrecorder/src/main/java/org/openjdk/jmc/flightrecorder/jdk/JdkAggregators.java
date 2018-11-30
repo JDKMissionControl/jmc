@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -118,6 +118,11 @@ public final class JdkAggregators {
 	public static final IAggregator<String, ?> JVM_VERSION = distinctAsString(VM_INFO, JdkAttributes.JVM_VERSION);
 	public static final IAggregator<String, ?> JAVA_ARGUMENTS = distinctAsString(VM_INFO, JdkAttributes.JAVA_ARGUMENTS);
 	public static final IAggregator<String, ?> JVM_ARGUMENTS = distinctAsString(VM_INFO, JdkAttributes.JVM_ARGUMENTS);
+	
+	public static final IAggregator<IQuantity, ?> JVM_SHUTDOWN_TIME = min(Messages.getString(Messages.ATTR_SHUTDOWN_TIME), null,
+			JdkTypeIDs.VM_SHUTDOWN, JfrAttributes.START_TIME);
+	public static final IAggregator<String, ?> JVM_SHUTDOWN_REASON = distinctAsString(JdkTypeIDs.VM_SHUTDOWN,
+			JdkAttributes.SHUTDOWN_REASON);
 	// CPU info
 	public static final IAggregator<IQuantity, ?> MIN_HW_THREADS = min(HW_THREADS.getName(), null, CPU_INFORMATION,
 			HW_THREADS);
@@ -411,7 +416,7 @@ public final class JdkAggregators {
 	/**
 	 * Aggregator for getting the first value, ie. the value from the event with the first occurring
 	 * start time.
-	 * 
+	 *
 	 * @param attribute
 	 *            attribute to get value from
 	 * @return the value provided by the very first event
@@ -426,7 +431,7 @@ public final class JdkAggregators {
 	/**
 	 * Aggregator for getting the last value, ie. the value from the event with the last occurring
 	 * end time.
-	 * 
+	 *
 	 * @param attribute
 	 *            attribute to get value from
 	 * @return the value provided by the very last event

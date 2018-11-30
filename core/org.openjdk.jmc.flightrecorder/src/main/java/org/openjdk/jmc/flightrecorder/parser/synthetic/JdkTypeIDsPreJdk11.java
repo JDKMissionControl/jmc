@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -39,15 +39,24 @@ import org.openjdk.jmc.flightrecorder.jdk.JdkTypeIDs;
  * Contains type IDs for events that are produced by JDK 7 and 8.
  */
 @SuppressWarnings({"nls", "unused"})
-public final class JdkTypeIDsPreJdk9 {
-	private final static String PREFIX = "com.oracle.jdk.";
+final class JdkTypeIDsPreJdk11 {
+	/**
+	 * The prefix used for JDK 11 and later
+	 */
+	private final static String PREFIX = "jdk.";
+
+	/**
+	 * The prefix used for JDK 9 and 10.
+	 */
+	private final static String PREFIX_9_10 = "com.oracle.jdk.";
 
 	/*
 	 * Package scope producer id constants
 	 */
-	private static final String JVM_EVENT_ID_ROOT = "http://www.oracle.com/hotspot/jvm/"; //$NON-NLS-1$
-	private static final String JDK_EVENT_ID_ROOT = "http://www.oracle.com/hotspot/jdk/"; //$NON-NLS-1$
-	private static final String JFR_INFO_EVENT_ID_ROOT = "http://www.oracle.com/hotspot/jfr-info/"; //$NON-NLS-1$
+	private static final String EVENT_ID_ROOT = "http://www.oracle.com/hotspot/"; //$NON-NLS-1$
+	private static final String JVM_EVENT_ID_ROOT = EVENT_ID_ROOT + "jvm/"; //$NON-NLS-1$
+	private static final String JDK_EVENT_ID_ROOT = EVENT_ID_ROOT + "jdk/"; //$NON-NLS-1$
+	private static final String JFR_INFO_EVENT_ID_ROOT = EVENT_ID_ROOT + "jfr-info/"; //$NON-NLS-1$
 
 	/*
 	 * Unused JDK9 constants
@@ -58,23 +67,23 @@ public final class JdkTypeIDsPreJdk9 {
 	 * FIXME: VMError is commented out since the build cannot handle warnings on lines containing
 	 * the text 'error'. Restore when we are sure that the build works with it.
 	 */
-//	private final static String VMError = PREFIX + "VMError"; // "vm.runtime.vm_error";
-	private final static String ClassLoaderStatistics = PREFIX + "ClassLoaderStatistics"; // "java.statistics.class_loaders";
+//	private final static String VMError = PREFIX_9_10 + "VMError"; // "vm.runtime.vm_error";
+	private final static String ClassLoaderStatistics = PREFIX_9_10 + "ClassLoaderStatistics"; // "java.statistics.class_loaders";
 
 	// GC
-	private final static String G1HeapSummary = PREFIX + "G1HeapSummary"; // "vm.gc.heap.g1_summary";
-	private final static String GC_G1MMU = PREFIX + "GCG1MMU"; // "vm.gc.detailed.g1_mmu_info";
-	private final static String PromoteObjectInNewPLAB = PREFIX + "PromoteObjectInNewPLAB"; // "vm.gc.detailed.object_promotion_in_new_PLAB";
-	private final static String PromoteObjectOutsidePLAB = PREFIX + "PromoteObjectOutsidePLAB"; // "vm.gc.detailed.object_promotion_outside_PLAB";
+	private final static String G1HeapSummary = PREFIX_9_10 + "G1HeapSummary"; // "vm.gc.heap.g1_summary";
+	private final static String GC_G1MMU = PREFIX_9_10 + "GCG1MMU"; // "vm.gc.detailed.g1_mmu_info";
+	private final static String PromoteObjectInNewPLAB = PREFIX_9_10 + "PromoteObjectInNewPLAB"; // "vm.gc.detailed.object_promotion_in_new_PLAB";
+	private final static String PromoteObjectOutsidePLAB = PREFIX_9_10 + "PromoteObjectOutsidePLAB"; // "vm.gc.detailed.object_promotion_outside_PLAB";
 
 	// Compiler
-	private final static String CompilerInlining = PREFIX + "CompilerInlining"; // "vm.compiler.optimization.inlining";
+	private final static String CompilerInlining = PREFIX_9_10 + "CompilerInlining"; // "vm.compiler.optimization.inlining";
 
 	// OS
-	private final static String LoadedModules = PREFIX + "LoadedModules"; // "vm.runtime.loaded_modules";
+	private final static String LoadedModules = PREFIX_9_10 + "LoadedModules"; // "vm.runtime.loaded_modules";
 
 	// Flight Recorder
-	private final static String DumpReason = PREFIX + "DumpReason"; // "flight_recorder.dump_reason";
+	private final static String DumpReason = PREFIX_9_10 + "DumpReason"; // "flight_recorder.dump_reason";
 
 	/*
 	 * JDK8 constants
@@ -198,15 +207,25 @@ public final class JdkTypeIDsPreJdk9 {
 
 	final static String RECORDINGS = JFR_INFO_EVENT_ID_ROOT + "recordings/recording";
 	final static String RECORDING_SETTING = JFR_INFO_EVENT_ID_ROOT + "recordings/recording_setting";
+        final static String JDK9_RECORDING_SETTING = PREFIX_9_10 + "ActiveSetting";
 
 	/**
-	 * Translate a pre-JDK 9 type id into a JDK 9 type id.
+	 * Translate a pre-JDK 11 type id into a JDK 11 type id.
 	 *
 	 * @param typeId
-	 *            Pre-JDK 9 type id
-	 * @return JDK 9 type id
+	 *            Pre-JDK 11 type id
+	 * @return JDK 11 type id
 	 */
-	static String translate(String typeId) {
+	public static String translate(String typeId) {
+		if (typeId.startsWith(PREFIX_9_10)) {
+			if (typeId.endsWith("AllocationRequiringGc")) {
+				return JdkTypeIDs.GC_DETAILED_ALLOCATION_REQUIRING_GC;
+			}
+			if (typeId.endsWith("GCG1MMU")) {
+				return JdkTypeIDs.GC_G1MMU;
+			}
+			return PREFIX + typeId.substring(PREFIX_9_10.length());
+		}
 		switch (typeId) {
 		case CPU_LOAD:
 			return JdkTypeIDs.CPU_LOAD;

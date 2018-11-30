@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -53,7 +53,7 @@ import org.openjdk.jmc.flightrecorder.parser.IEventSinkFactory;
 import org.openjdk.jmc.flightrecorder.parser.ValueField;
 
 /**
- * Event sink that transforms pre JDK 9 event types to their equivalent JDK 9 types. JDK 9 input
+ * Event sink that transforms pre JDK 11 event types to their equivalent JDK 11 types. JDK 11 input
  * data will be passed through mostly untouched.
  */
 class SettingsTransformer implements IEventSink {
@@ -103,7 +103,7 @@ class SettingsTransformer implements IEventSink {
 			new ValueField(SyntheticAttributeExtension.REC_SETTING_EVENT_ID_ATTRIBUTE),
 			new ValueField(JdkAttributes.REC_SETTING_NAME), new ValueField(JdkAttributes.REC_SETTING_VALUE));
 
-	// Renamed attributes from pre JDK 9: <event id, <pre 9 attribute id, 9 attribute id>>
+	// Renamed attributes from pre JDK 11: <event id, <pre 11 attribute id, 11 attribute id>>
 	private static final Map<String, Map<String, String>> attributeRenameMap;
 
 	// JDK-8157024 constant for the field id
@@ -126,42 +126,42 @@ class SettingsTransformer implements IEventSink {
 	private static HashMap<String, Map<String, String>> buildRenameMap() {
 		// NOTE: Replace the last string argument with an identifier reference if a matching one is added to JfrAttributes.
 		HashMap<String, Map<String, String>> map = new HashMap<>();
-		addRenameEntry(map, JdkTypeIDsPreJdk9.THREAD_PARK, "klass", "parkedClass");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.MONITOR_ENTER, "klass", JdkAttributes.MONITOR_CLASS.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.MONITOR_WAIT, "klass", JdkAttributes.MONITOR_CLASS.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.INT_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.INT_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.UINT_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.UINT_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.LONG_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.LONG_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.ULONG_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.ULONG_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.DOUBLE_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.DOUBLE_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.BOOLEAN_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.BOOLEAN_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.STRING_FLAG_CHANGED, "old_value", "oldValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.STRING_FLAG_CHANGED, "new_value", "newValue");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.GC_DETAILED_EVACUATION_INFO, "allocRegionsUsedBefore",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.THREAD_PARK, "klass", "parkedClass");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.MONITOR_ENTER, "klass", JdkAttributes.MONITOR_CLASS.getIdentifier());
+		addRenameEntry(map, JdkTypeIDsPreJdk11.MONITOR_WAIT, "klass", JdkAttributes.MONITOR_CLASS.getIdentifier());
+		addRenameEntry(map, JdkTypeIDsPreJdk11.INT_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.INT_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.UINT_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.UINT_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.LONG_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.LONG_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.ULONG_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.ULONG_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.DOUBLE_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.DOUBLE_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.BOOLEAN_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.BOOLEAN_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.STRING_FLAG_CHANGED, "old_value", "oldValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.STRING_FLAG_CHANGED, "new_value", "newValue");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.GC_DETAILED_EVACUATION_INFO, "allocRegionsUsedBefore",
 				"allocationRegionsUsedBefore");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.GC_DETAILED_EVACUATION_INFO, "allocRegionsUsedAfter",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.GC_DETAILED_EVACUATION_INFO, "allocRegionsUsedAfter",
 				"allocationRegionsUsedAfter");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.SWEEP_CODE_CACHE, "sweepIndex", "sweepId");
-		addRenameEntry(map, JdkTypeIDsPreJdk9.ALLOC_INSIDE_TLAB, "class",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.SWEEP_CODE_CACHE, "sweepIndex", "sweepId");
+		addRenameEntry(map, JdkTypeIDsPreJdk11.ALLOC_INSIDE_TLAB, "class",
 				JdkAttributes.ALLOCATION_CLASS.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.ALLOC_OUTSIDE_TLAB, "class",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.ALLOC_OUTSIDE_TLAB, "class",
 				JdkAttributes.ALLOCATION_CLASS.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.OBJECT_COUNT, "class", JdkAttributes.OBJECT_CLASS.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.COMPILER_PHASE, "compileID",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.OBJECT_COUNT, "class", JdkAttributes.OBJECT_CLASS.getIdentifier());
+		addRenameEntry(map, JdkTypeIDsPreJdk11.COMPILER_PHASE, "compileID",
 				JdkAttributes.COMPILER_COMPILATION_ID.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.COMPILATION, "compileID",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.COMPILATION, "compileID",
 				JdkAttributes.COMPILER_COMPILATION_ID.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.COMPILER_FAILURE, "compileID",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.COMPILER_FAILURE, "compileID",
 				JdkAttributes.COMPILER_COMPILATION_ID.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.COMPILER_FAILURE, "failure",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.COMPILER_FAILURE, "failure",
 				JdkAttributes.COMPILER_FAILED_MESSAGE.getIdentifier());
-		addRenameEntry(map, JdkTypeIDsPreJdk9.GC_DETAILED_OBJECT_COUNT_AFTER_GC, "class",
+		addRenameEntry(map, JdkTypeIDsPreJdk11.GC_DETAILED_OBJECT_COUNT_AFTER_GC, "class",
 				JdkAttributes.OBJECT_CLASS.getIdentifier());
 		return map;
 	}
@@ -178,7 +178,6 @@ class SettingsTransformer implements IEventSink {
 
 	SettingsTransformer(IEventSinkFactory sinkFactory, String label, String[] category, String description,
 			List<ValueField> dataStructure) {
-		sink = sinkFactory.create(JdkTypeIDs.RECORDING_SETTING, label, category, description, FIELDS);
 		for (int i = 0; i < dataStructure.size(); i++) {
 			ValueField vf = dataStructure.get(i);
 			if (vf.matches(JfrAttributes.END_TIME)) {
@@ -195,6 +194,11 @@ class SettingsTransformer implements IEventSink {
 				periodIndex = i;
 			}
 		}
+		if (endTimeIndex >= 0) {
+			sink = sinkFactory.create(JdkTypeIDs.RECORDING_SETTING, label, category, description, FIELDS);
+		} else {
+			sink = sinkFactory.create(JdkTypeIDs.RECORDING_SETTING, label, category, description, dataStructure);
+		}
 	}
 
 	boolean isValid() {
@@ -202,12 +206,21 @@ class SettingsTransformer implements IEventSink {
 				&& periodIndex >= 0;
 	}
 
+	boolean isValidV1() {
+		return typeIndex >= 0;
+	}
+
 	@Override
 	public void addEvent(Object[] values) {
 		LabeledIdentifier type = (LabeledIdentifier) values[typeIndex];
 		if (type != null) {
-			type = new LabeledIdentifier(JdkTypeIDsPreJdk9.translate(type.getInterfaceId()), type.getImplementationId(),
-					type.getName(), type.getDeclaredDescription());
+			type = new LabeledIdentifier(JdkTypeIDsPreJdk11.translate(type.getInterfaceId()),
+				type.getImplementationId(), type.getName(), type.getDeclaredDescription());
+			if (endTimeIndex < 0) {
+				values[typeIndex] = type;
+				sink.addEvent(values);
+				return;
+			}
 		}
 		Object startTime = values[endTimeIndex];
 
@@ -253,7 +266,7 @@ class SettingsTransformer implements IEventSink {
 
 	/*
 	 * FIXME: Weird to explicitly wrap when the parser does exactly that.
-	 * 
+	 *
 	 * This class should be refactored into a parser extension although this may require a change to
 	 * the API by adding priorities so that type transformation occurs before synthetic attributes
 	 * are added.
@@ -265,17 +278,21 @@ class SettingsTransformer implements IEventSink {
 			public IEventSink create(
 				String identifier, String label, String[] category, String description,
 				List<ValueField> dataStructure) {
-				if (JdkTypeIDsPreJdk9.RECORDING_SETTING.equals(identifier)) {
+				if (JdkTypeIDsPreJdk11.RECORDING_SETTING.equals(identifier) ||
+					JdkTypeIDsPreJdk11.JDK9_RECORDING_SETTING.equals(identifier)) {
 					SettingsTransformer st = new SettingsTransformer(subFactory, label, category, description,
 							dataStructure);
-					if (st.isValid()) {
+					if ((JdkTypeIDsPreJdk11.RECORDING_SETTING.equals(identifier) &&
+					     st.isValid()) ||
+						(JdkTypeIDsPreJdk11.JDK9_RECORDING_SETTING.equals(identifier) &&
+						 st.isValidV1())) {
 						return st;
 					} else {
 						// FIXME: Avoid System.err.println
 						System.err
 								.println("Cannot create SettingsTransformer from fields: " + dataStructure.toString()); //$NON-NLS-1$
 					}
-				} else if (JdkTypeIDsPreJdk9.RECORDINGS.equals(identifier)) {
+				} else if (JdkTypeIDsPreJdk11.RECORDINGS.equals(identifier)) {
 					/*
 					 * NOTE: Renaming 'duration' and 'startTime' attributes for JDK 8 'Recording'
 					 * events so that they won't conflict with general attributes with the same
@@ -293,15 +310,15 @@ class SettingsTransformer implements IEventSink {
 					}
 					return subFactory.create(JdkTypeIDs.RECORDINGS, label, category, description,
 							Arrays.asList(struct));
-				} else if (JdkTypeIDsPreJdk9.CODE_CACHE_STATISTICS.equals(identifier)) {
+				} else if (JdkTypeIDsPreJdk11.CODE_CACHE_STATISTICS.equals(identifier)) {
 					for (int i = 0; i < dataStructure.size(); i++) {
 						if (UNALLOCATED_CAPACITY_FIELD_ID.equals(dataStructure.get(i).getIdentifier())) {
-							return new FixCodeCacheSink(i, subFactory.create(JdkTypeIDsPreJdk9.translate(identifier),
+							return new FixCodeCacheSink(i, subFactory.create(JdkTypeIDsPreJdk11.translate(identifier),
 									label, category, description, dataStructure));
 						}
 					}
 				}
-				return subFactory.create(JdkTypeIDsPreJdk9.translate(identifier), label, category, description,
+				return subFactory.create(JdkTypeIDsPreJdk11.translate(identifier), label, category, description,
 						translate(identifier, dataStructure));
 			}
 

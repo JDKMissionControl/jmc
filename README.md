@@ -1,11 +1,3 @@
-# THIS IS A TEST IMPORT
-
-Don't use this repo for anything. Please instead clone the official Mercurial repository:
-
-```bash
-hg clone http://hg.openjdk.java.net/jmc/jmc/
-```
-
 # Mission Control
 
 Mission Control is an open source production time profiling and diagnostics tool for Java.
@@ -200,6 +192,9 @@ mvn jetty:run
 Then in another terminal (in the project root):
 
 ```bash
+cd core
+mvn clean install
+cd ..
 mvn package
 ```
 Note that you may need to define proxy settings if you happen to be behind a firewall. In your ~/.m2/settings.xml file (if you have none, simply create one), add:
@@ -289,10 +284,37 @@ Here is an example for Mac OS X:
 target/products/org.openjdk.jmc/macosx/cocoa/x86_64/JDK\ Mission\ Control.app/Contents/MacOS/jmc -vm $JAVA_HOME/bin
 ```
 
+Here is an example for Linux:
+
+```bash
+target/products/org.openjdk.jmc/linux/gtk/x86_64/jmc -vm $JAVA_HOME/bin
+```
+
 And here is an example for Windows x64:
 
 ```bash
-missioncontrol\target\products\org.openjdk.jmc\win32\win32\x86_64\jmc.exe -vm %JAVA_HOME%\bin
+target\products\org.openjdk.jmc\win32\win32\x86_64\jmc.exe -vm %JAVA_HOME%\bin
+```
+
+## Using the Built JMC Update Site in Eclipse
+As part of the JMC build, the JMC update sites will be built. 
+
+There is one update site for the stand-alone RCP application, providing plug-ins for the stand-alone release of JMC:
+
+```bash
+application/org.openjdk.jmc.updatesite.rcp/target/
+```
+
+There is another update site for the Eclipse plug-ins, providing plug-ins for running JMC inside of Eclipse:
+
+```bash
+application/org.openjdk.jmc.updatesite.ide/target/
+```
+
+To install it into Eclipe, simply open Eclipse and select Help | Install New Software... In the dialog, click Add... and then click the Archive... button. Select the built update site, e.g. 
+
+```bash
+application/org.openjdk.jmc.updatesite.ide/target/org.openjdk.jmc.updatesite.ide-7.0.0-SNAPSHOT.zip
 ```
 
 ## Setting Up for Development and Launching in Eclipse
@@ -302,7 +324,11 @@ First make sure that you have installed the Mercurial Plug-in for Eclipse (Mercu
 2. Next open (File | Open...) the Eclipse target platform of interest, for example releng/platform-definitions/platform-definition-photon/platform.target
 3. In the upper right corner of the platform editor that opens, click the link "Set as Active Target Platform"
 4. Import the projects you are interested in (core and/or application) into a recent Eclipse.
-5. If importing the application projects, make sure you create a user library (Preferences | Java/Build Path/User Libraries) named JMC_JDK, and add (Add External JARs...) the following JARs from a JDK 8 (u40 or above) to the User Library: tools.jar (<JDK>/lib/tools.jar), jconsole.jar (<JDK>/lib/jconsole.jar), jfxswt.jar (<JDK>/jre/lib/jfxswt.jar), and finally the jfxrt.jar (<JDK>/jre/lib/ext/jfxrt.jar).
+5. If importing the application projects, make sure you create a user library (Preferences | Java/Build Path/User Libraries) named JMC_JDK, and add (Add External JARs...) the following JARs from a JDK 8 (u40 or above) to the User Library:
+ - tools.jar (<JDK>/lib/tools.jar)
+ - jconsole.jar (<JDK>/lib/jconsole.jar)
+ - jfxswt.jar (<JDK>/jre/lib/jfxswt.jar)
+ - jfxrt.jar (<JDK>/jre/lib/ext/jfxrt.jar)
 
 Note that importing configuration/ide/eclipse as an Eclipse project should automatically make the development launchers available to you.
 

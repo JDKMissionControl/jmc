@@ -61,6 +61,10 @@ public class Messages extends NLS {
 	public static String ClassLoadingPage_AGGR_CLASSES_UNLOADED_BY_CLASSLOADER;
 	public static String ClassLoadingPage_AGGR_CLASSES_UNLOADED_BY_CLASSLOADER_DESC;
 	public static String ClassLoadingPage_AGGR_CLASSES_UNLOADED_DESC;
+	public static String ClassLoadingPage_CLASS_LOADER_TAB;
+	public static String ClassLoadingPage_CLASS_LOADER_STATISTICS_ACTION;
+	public static String ClassLoadingPage_CLASS_LOADER_STATISTICS_LIST_SELECTION;
+	public static String ClassLoadingPage_CLASS_LOADER_STATISTICS_TAB_TITLE;
 	public static String ClassLoadingPage_CLASS_LOADING_ACTION;
 	public static String ClassLoadingPage_CLASS_LOADING_ACTION_DESC;
 	public static String ClassLoadingPage_CLASS_LOADING_HISTOGRAM_SELECTION;
@@ -71,6 +75,9 @@ public class Messages extends NLS {
 	public static String ClassLoadingPage_CLASS_UNLOADING_ACTION_DESC;
 	public static String ClassLoadingPage_CLASS_UNLOADING_LIST_SELECTION;
 	public static String ClassLoadingPage_CLASS_UNLOADING_TAB_TITLE;
+	public static String ClassLoadingPage_CLASS_DEFINE_ACTION;
+	public static String ClassLoadingPage_CLASS_DEFINE_LIST_SELECTION;
+	public static String ClassLoadingPage_CLASS_DEFINE_TAB_TITLE;
 	public static String ClassLoadingPage_PAGE_NAME;
 	public static String ClassLoadingPage_ROW_CLASSES_LOADED;
 	public static String ClassLoadingPage_ROW_CLASSES_UNLOADED;
@@ -132,6 +139,8 @@ public class Messages extends NLS {
 	public static String FILE_OPENER_ZIPPED_FILE_TITLE;
 	public static String FILTER_ADD_FROM_ATTRIBUTE;
 	public static String FILTER_ADD_FROM_SELECTION;
+	public static String FILTER_NO_ATTRIBUTE_AVAILABLE;
+	public static String FILTER_NO_SELECTION_AVAILABLE;
 	public static String FILTER_SHOW_FILTER_ACTION;
 	public static String FILTER_SHOW_SEARCH_ACTION;
 	public static String FLAVOR_CONTAINS;
@@ -170,6 +179,7 @@ public class Messages extends NLS {
 	public static String GCConfigurationPage_SECTION_YOUNG_CONFIG;
 	public static String GarbageCollectionsPage_COMMITTED_HEAP_DELTA;
 	public static String GarbageCollectionsPage_COMMITTED_METASPACE_DELTA;
+	public static String GarbageCollectionsPage_DISABLED_TOOLTIP;
 	public static String GarbageCollectionsPage_LIST_SELECTION;
 	public static String GarbageCollectionsPage_METASPACE_SELECTION;
 	public static String GarbageCollectionsPage_METASPACE_TITLE;
@@ -222,6 +232,7 @@ public class Messages extends NLS {
 	public static String ItemHandlerPage_SET_TOPICS_DIALOG_MESSAGE;
 	public static String ItemHandlerPage_SET_TOPICS_TITLE;
 	public static String ItemHandlerPage_SHOW_FILTER_ACTION;
+	public static String JFR_EDITOR_INVALID_RECORDING_TEXT;
 	public static String JFR_EDITOR_NO_PAGES_TO_SHOW;
 	public static String JFR_EDITOR_PAGE_CANNOT_BE_DISPLAYED;
 	public static String JFR_EDITOR_RULES_CANCELLED;

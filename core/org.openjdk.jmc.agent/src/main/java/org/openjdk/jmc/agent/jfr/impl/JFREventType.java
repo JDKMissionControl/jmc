@@ -30,37 +30,19 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.openjdk.jmc.agent.text.impl;
+package org.openjdk.jmc.agent.jfr.impl;
 
-import java.util.Map;
+public enum JFREventType {
+	INSTANT, DURATION, TIMED, UNDEFINED;
 
-import org.openjdk.jmc.agent.Method;
-import org.openjdk.jmc.agent.TransformDescriptor;
-
-/**
- * Necessary transformation information for producing an event. For now limited to one event per
- * method.
- */
-public class TextTransformDescriptor extends TransformDescriptor {
-	private static final String ATTRIBUTE_MESSAGE_ENTRY = "messageEntry"; //$NON-NLS-1$
-	private static final String ATTRIBUTE_MESSAGE_EXIT = "messageExit"; //$NON-NLS-1$
-
-	public TextTransformDescriptor(String id, String className, Method method,
-			Map<String, String> transformationAttributes) {
-		super(id, className, method, transformationAttributes);
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Text transform %s:%s pending:%s", getClassName(), getMethod().toString(), //$NON-NLS-1$
-				String.valueOf(isPendingTransforms()));
-	}
-
-	public String getEnterMessage() {
-		return getTransformationAttribute(ATTRIBUTE_MESSAGE_ENTRY);
-	}
-
-	public String getExitMessage() {
-		return getTransformationAttribute(ATTRIBUTE_MESSAGE_EXIT);
+	public static JFREventType parse(String string) {
+		if (string == null) {
+			return UNDEFINED;
+		}
+		JFREventType et = JFREventType.valueOf(string.toUpperCase().trim());
+		if (et == null) {
+			return UNDEFINED;
+		}
+		return et;
 	}
 }

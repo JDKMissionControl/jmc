@@ -91,6 +91,7 @@
 		<module>org.openjdk.jmc.jdp</module>
 		<module>org.openjdk.jmc.joverflow</module>
 		<module>org.openjdk.jmc.joverflow.ui</module>
+		<module>org.openjdk.jmc.osgi.extension</module>
 		<module>org.openjdk.jmc.pde</module>
 		<module>org.openjdk.jmc.rcp.application</module>
 		<module>org.openjdk.jmc.rcp.intro</module>
@@ -109,14 +110,71 @@
 	</modules>
 	<profiles>
 		<profile>
+			<id>no-jfr</id>
+			<activation>
+				<property>
+					<name>java.runtime.name</name>
+					<value>OpenJDK Runtime Environment</value>
+				</property>
+                                <jdk>(,11)</jdk>
+			</activation>
+			<properties>
+				<jfr.tests>org.openjdk.jmc.rjmx.test.services.CommercialFeaturesServiceTest,org.openjdk.jmc.flightrecorder.controlpanel.ui.model.test.EventConfigurationModelTest,org.openjdk.jmc.flightrecorder.controlpanel.ui.test.PropertyContentBuilderTest,org.openjdk.jmc.flightrecorder.controlpanel.ui.model.test.JfcAndServerSettingsCombinationTest,org.openjdk.jmc.rjmx.services.jfr.test.EventMetadataTest,org.openjdk.jmc.rjmx.services.jfr.test.EventTemplateTest,org.openjdk.jmc.rjmx.services.jfr.test.JfrControlTest,org.openjdk.jmc.rjmx.services.jfr.test.JfrPackageExampleTest,org.openjdk.jmc.rjmx.services.jfr.test.OnlineEventOptionsTest,org.openjdk.jmc.rjmx.services.jfr.test.RecordingOptionsTest,org.openjdk.jmc.flightrecorder.uitest.JfrWizardTest,org.openjdk.jmc.flightrecorder.uitest.TemplateManagerTest,org.openjdk.jmc.flightrecorder.uitest.ControlRecordingsTest,org.openjdk.jmc.console.uitest.DiagnosticCommandsTabTest</jfr.tests>
+				<jfr.vmargs></jfr.vmargs>
+			</properties>
+		</profile>
+		<profile>
 			<id>uitests</id>
 			<modules>
 				<module>uitests</module>
 			</modules>
 		</profile>
-	</profiles>	
+	</profiles>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<jfr.tests></jfr.tests>
+		<jfr.vmargs>-XX:+UnlockCommercialFeatures -XX:+FlightRecorder</jfr.vmargs>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>common</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>common.test</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>flightrecorder</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>flightrecorder.rules</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>flightrecorder.rules.jdk</artifactId>
+			<version>7.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

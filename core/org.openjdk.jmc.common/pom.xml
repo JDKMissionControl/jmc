@@ -38,6 +38,5 @@
 		<artifactId>missioncontrol.core</artifactId>
 		<version>7.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.openjdk.jmc.common</artifactId>
-	<packaging>eclipse-plugin</packaging>
+	<artifactId>common</artifactId>
 </project>

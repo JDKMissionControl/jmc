@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -156,18 +156,27 @@ public class Messages {
 	public static final String ATTR_ALLOCATION_CLASS = "ATTR_ALLOCATION_CLASS"; //$NON-NLS-1$
 	public static final String ATTR_ALLOCATION_CLASS_DESC = "ATTR_ALLOCATION_CLASS_DESC"; //$NON-NLS-1$
 	public static final String ATTR_ALLOCATION_SIZE = "ATTR_ALLOCATION_SIZE"; //$NON-NLS-1$
+	public static final String ATTR_ANONYMOUS_BLOCK_SIZE = "ATTR_ANONYMOUS_BLOCK_SIZE"; //$NON-NLS-1$
+	public static final String ATTR_ANONYMOUS_CHUNK_SIZE = "ATTR_ANONYMOUS_CHUNK_SIZE"; //$NON-NLS-1$
+	public static final String ATTR_ANONYMOUS_CLASS_COUNT = "ATTR_ANONYMOUS_CLASS_COUNT"; //$NON-NLS-1$
+	public static final String ATTR_BLOCK_SIZE = "ATTR_BLOCK_SIZE"; //$NON-NLS-1$
 	public static final String ATTR_BLOCKING = "ATTR_BLOCKING"; //$NON-NLS-1$
 	public static final String ATTR_BLOCKING_DESC = "ATTR_BLOCKING_DESC"; //$NON-NLS-1$
 	public static final String ATTR_CALLER = "ATTR_CALLER"; //$NON-NLS-1$
 	public static final String ATTR_CALLER_DESC = "ATTR_CALLER_DESC"; //$NON-NLS-1$
+	public static final String ATTR_CHUNK_SIZE = "ATTR_CHUNK_SIZE"; //$NON-NLS-1$
+	public static final String ATTR_CLASSLOADER = "ATTR_CLASSLOADER"; //$NON-NLS-1$
+	public static final String ATTR_CLASSLOADER_DATA = "ATTR_CLASSLOADER_DATA"; //$NON-NLS-1$
 	public static final String ATTR_CLASSLOADER_LOADED_COUNT = "ATTR_CLASSLOADER_LOADED_COUNT"; //$NON-NLS-1$
 	public static final String ATTR_CLASSLOADER_LOADED_COUNT_DESC = "ATTR_CLASSLOADER_LOADED_COUNT_DESC"; //$NON-NLS-1$
 	public static final String ATTR_CLASSLOADER_UNLOADED_COUNT = "ATTR_CLASSLOADER_UNLOADED_COUNT"; //$NON-NLS-1$
 	public static final String ATTR_CLASSLOADER_UNLOADED_COUNT_DESC = "ATTR_CLASSLOADER_UNLOADED_COUNT_DESC"; //$NON-NLS-1$
 	public static final String ATTR_CLASS_DEFINING_CLASSLOADER = "ATTR_CLASS_DEFINING_CLASSLOADER"; //$NON-NLS-1$
 	public static final String ATTR_CLASS_INITIATING_CLASSLOADER = "ATTR_CLASS_INITIATING_CLASSLOADER"; //$NON-NLS-1$
+	public static final String ATTR_CLASS_COUNT = "ATTR_CLASS_COUNT"; //$NON-NLS-1$
 	public static final String ATTR_CLASS_LOADED = "ATTR_CLASS_LOADED"; //$NON-NLS-1$
 	public static final String ATTR_CLASS_UNLOADED = "ATTR_CLASS_UNLOADED"; //$NON-NLS-1$
+	public static final String ATTR_CLASS_DEFINED = "ATTR_CLASS_DEFINED"; //$NON-NLS-1$
 	public static final String ATTR_CODE_HEAP = "ATTR_CODE_HEAP"; //$NON-NLS-1$
 	public static final String ATTR_COMMAND_LINE = "ATTR_COMMAND_LINE"; //$NON-NLS-1$
 	public static final String ATTR_COMMITTED_TOP = "ATTR_COMMITTED_TOP"; //$NON-NLS-1$
@@ -290,6 +299,7 @@ public class Messages {
 	public static final String ATTR_IO_FILE_READ_EOF_DESC = "ATTR_IO_FILE_READ_EOF_DESC"; //$NON-NLS-1$
 	public static final String ATTR_IO_HOST = "ATTR_IO_HOST"; //$NON-NLS-1$
 	public static final String ATTR_IO_HOST_DESC = "ATTR_IO_HOST_DESC"; //$NON-NLS-1$
+	public static final String ATTR_PARENT_ClASSLOADER = "ATTR_PARENT_CLASSLOADER"; //$NON-NLS-1$
 	public static final String ATTR_IO_PATH = "ATTR_IO_PATH"; //$NON-NLS-1$
 	public static final String ATTR_IO_PATH_DESC = "ATTR_IO_PATH_DESC"; //$NON-NLS-1$
 	public static final String ATTR_IO_PORT = "ATTR_IO_PORT"; //$NON-NLS-1$
@@ -361,6 +371,7 @@ public class Messages {
 	public static final String ATTR_OTHER_CPU_DESC = "ATTR_OTHER_CPU_DESC"; //$NON-NLS-1$
 	public static final String ATTR_PARALLEL_GC_THREADS = "ATTR_PARALLEL_GC_THREADS"; //$NON-NLS-1$
 	public static final String ATTR_PARALLEL_GC_THREADS_DESC = "ATTR_PARALLEL_GC_THREADS_DESC"; //$NON-NLS-1$
+	public static final String ATTR_PARENT_CLASSLOADER = "ATTR_PARENT_CLASSLOADER"; //$NON-NLS-1$
 	public static final String ATTR_PID = "ATTR_PID"; //$NON-NLS-1$
 	public static final String ATTR_PROFILED_NMETHODS_ENTRIES = "ATTR_PROFILED_NMETHODS_ENTRIES"; //$NON-NLS-1$
 	public static final String ATTR_PROFILED_NMETHODS_ENTRIES_DESCRIPTION = "ATTR_PROFILED_NMETHODS_ENTRIES_DESCRIPTION"; //$NON-NLS-1$
@@ -432,6 +443,9 @@ public class Messages {
 	public static final String ATTR_YOUNG_COLLECTOR_DESC = "ATTR_YOUNG_COLLECTOR_DESC"; //$NON-NLS-1$
 	public static final String ATTR_YOUNG_GENERATION_MAX_SIZE = "ATTR_YOUNG_GENERATION_MAX_SIZE"; //$NON-NLS-1$
 	public static final String ATTR_YOUNG_GENERATION_MIN_SIZE = "ATTR_YOUNG_GENERATION_MIN_SIZE"; //$NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_REASON = "ATTR_SHUTDOWN_REASON"; // $NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_REASON_DESC = "ATTR_SHUTDOWN_REASON_DESC"; // $NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_TIME = "ATTR_SHUTDOWN_TIME"; // $NON-NLS-1$
 
 	private Messages() {
 	}

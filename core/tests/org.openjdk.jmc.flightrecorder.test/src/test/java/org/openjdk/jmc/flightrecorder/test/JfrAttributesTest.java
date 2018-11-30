@@ -30,19 +30,34 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.openjdk.jmc.agent.jfr;
+package org.openjdk.jmc.flightrecorder.test;
 
-public enum JFREventType {
-	INSTANT, DURATION, TIMED, UNDEFINED;
+import static org.junit.Assert.assertEquals;
 
-	public static JFREventType parse(String string) {
-		if (string == null) {
-			return UNDEFINED;
-		}
-		JFREventType et = JFREventType.valueOf(string.toUpperCase().trim());
-		if (et == null) {
-			return UNDEFINED;
-		}
-		return et;
+import java.io.IOException;
+import java.util.Set;
+
+import org.junit.Test;
+import org.openjdk.jmc.common.item.Aggregators;
+import org.openjdk.jmc.common.item.IAggregator;
+import org.openjdk.jmc.common.item.IItemCollection;
+import org.openjdk.jmc.common.item.IType;
+import org.openjdk.jmc.flightrecorder.CouldNotLoadRecordingException;
+import org.openjdk.jmc.flightrecorder.JfrAttributes;
+import org.openjdk.jmc.flightrecorder.test.util.RecordingToolkit;
+
+/**
+ * Class to test JfrAttributes
+ */
+public class JfrAttributesTest {
+	
+	@Test
+	public void testGetEventTypes() throws IOException, CouldNotLoadRecordingException {
+		IItemCollection events = RecordingToolkit.getFlightRecording(RecordingToolkit.getRecordings());
+		String typesStr = events.getAggregate(Aggregators.distinctAsString(JfrAttributes.EVENT_TYPE_ID, ", ")); //$NON-NLS-1$
+		
+		IAggregator<Set<IType<?>>, ?> distinct = Aggregators.distinct(JfrAttributes.EVENT_TYPE);
+		Set<IType<?>> types = events.getAggregate(distinct);
+		assertEquals(types.size(), typesStr.split(",").length); //$NON-NLS-1$
 	}
 }

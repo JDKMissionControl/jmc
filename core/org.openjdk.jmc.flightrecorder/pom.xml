@@ -38,6 +38,13 @@
 		<artifactId>missioncontrol.core</artifactId>
 		<version>7.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.openjdk.jmc.flightrecorder</artifactId>
-	<packaging>eclipse-plugin</packaging>
+
+	<artifactId>flightrecorder</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>org.openjdk.jmc</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>

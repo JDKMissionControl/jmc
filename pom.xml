@@ -37,21 +37,64 @@
 	<artifactId>missioncontrol</artifactId>
 	<version>7.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>JDK Mission Control</name>
+	<description>Java Mission Control is an advanced set of tools that enables 
+		efficient and detailed analysis of the extensive of data collected by 
+		Java Flight Recorder. The tool chain enables developers and 
+		administrators to collect and analyze data from Java applications 
+		running locally or deployed in production environments.
+	</description>
+	<url>http://jdk.java.net/jmc</url>
+	<licenses>
+		<license>
+			<name>Universal Permissive License Version 1.0</name>
+			<url>http://oss.oracle.com/licenses/upl</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>Oracle</name>
+		<url>https://www.oracle.com</url>
+	</organization>
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://bugs.openjdk.java.net/projects/JMC/issues</url>
+	</issueManagement>
+	<mailingLists>
+		<mailingList>
+			<name>jmc dev</name>
+			<subscribe>http://mail.openjdk.java.net/mailman/listinfo/jmc-dev</subscribe>
+			<unsubscribe>http://mail.openjdk.java.net/mailman/listinfo/jmc-dev</unsubscribe>
+			<archive>http://mail.openjdk.java.net/pipermail/jmc-dev/</archive>
+		</mailingList>
+	</mailingLists>
 	<modules>
-		<module>core</module>
 		<module>application</module>
 		<module>releng</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<tycho-version>1.0.0</tycho-version>
+		<tycho.version>1.2.0</tycho.version>
+		<maven.buildnumber.version>1.4</maven.buildnumber.version>
+		<maven.deploy.version>2.8.2</maven.deploy.version>
+		<maven.directory.version>0.2</maven.directory.version>
+		<maven.enforcer.version>3.0.0-M1</maven.enforcer.version>
+		<maven.resources.version>3.0.2</maven.resources.version>
+		<m2e.lifecycle.version>1.0.0</m2e.lifecycle.version>
+		<spotbugs.version>3.1.3</spotbugs.version>
 		<buildId>${user.name}</buildId>
 		<scmConnection>scm:hg:http://hg.openjdk.java.net/jmc/jmc</scmConnection>
 	</properties>
 	<scm>
 		<connection>${scmConnection}</connection>
 	</scm>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>jmc-publish-snapshot</id>
+			<url>${snapshot.repo}</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<profiles>
 		<profile>
 			<id>photon</id>
@@ -63,7 +106,7 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 						<configuration>
 							<target>
 								<artifact>
@@ -84,7 +127,7 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 						<configuration>
 							<target>
 								<artifact>
@@ -102,9 +145,17 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven.deploy.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<environments>
 						<environment>
@@ -128,13 +179,13 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<extensions>true</extensions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<useProjectSettings>false</useProjectSettings>
 				</configuration>
@@ -142,7 +193,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-repository-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<includeAllDependencies>true</includeAllDependencies>
 				</configuration>
@@ -150,7 +201,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-packaging-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<executions>
 					<execution>
 						<id>build-qualifier</id>
@@ -163,7 +214,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Built-By/>
+							<Built-By />
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -171,7 +222,7 @@
 			<plugin>
 				<groupId>org.commonjava.maven.plugins</groupId>
 				<artifactId>directory-maven-plugin</artifactId>
-				<version>0.2</version>
+				<version>${maven.directory.version}</version>
 				<executions>
 					<execution>
 						<id>directories</id>
@@ -188,7 +239,7 @@
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>3.1.3</version>
+				<version>${spotbugs.version}</version>
 				<configuration>
 					<effort>Max</effort>
 					<threshold>Low</threshold>
@@ -205,7 +256,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>1.4</version>
+				<version>${maven.buildnumber.version}</version>
 				<executions>
 					<execution>
 						<phase>initialize</phase>
@@ -230,13 +281,13 @@
 							<timestampPropertyName>build.date</timestampPropertyName>
 						</configuration>
 					</execution>
-					<!-- TODO: Maybe add the create-metadata goal after we've made the switch to Mercurial  -->
+					<!-- TODO: Maybe add the create-metadata goal after we've made the switch to Mercurial -->
 				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>${maven.enforcer.version}</version>
 				<executions>
 					<execution>
 						<id>enforce-java</id>
@@ -246,10 +297,10 @@
 						<configuration>
 							<rules>
 								<requireJavaVersion>
-									<version>[1.8.0-40,9.0.0)</version>
+									<version>[1.8.0-40,)</version>
 									<message>Building JMC requires Java 8 version JDK 1.8.0_40 or later</message>
 								</requireJavaVersion>
-							</rules>		
+							</rules>
 						</configuration>
 					</execution>
 					<execution>
@@ -274,7 +325,7 @@
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
+					<version>${m2e.lifecycle.version}</version>
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
@@ -302,7 +353,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.0.2</version>
+					<version>${maven.resources.version}</version>
 					<executions>
 						<execution>
 							<id>copy-resources</id>

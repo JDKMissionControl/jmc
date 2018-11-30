@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -178,8 +178,7 @@ public final class JdkAttributes {
 						@Override
 						public String getMember(U i) {
 							IMCType type = accessor.getMember(i);
-							return type == null ? null
-									: FormatToolkit.getPackage(type.getPackage());
+							return type == null ? null : FormatToolkit.getPackage(type.getPackage());
 						}
 					};
 				}
@@ -701,6 +700,10 @@ public final class JdkAttributes {
 	public static final IAttribute<String> DUMP_REASON_RECORDING_ID = attr("recordingId", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_DUMP_REASON_RECORDING_ID),
 			Messages.getString(Messages.ATTR_DUMP_REASON_RECORDING_ID_DESC), PLAIN_TEXT);
+	
+	public static final IAttribute<String> SHUTDOWN_REASON = attr("reason", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_SHUTDOWN_REASON),
+			Messages.getString(Messages.ATTR_SHUTDOWN_REASON_DESC), PLAIN_TEXT);
 
 	public static final IAttribute<IQuantity> CLASSLOADER_LOADED_COUNT = attr("loadedClassCount", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASSLOADER_LOADED_COUNT),
@@ -713,6 +716,10 @@ public final class JdkAttributes {
 			Messages.getString(Messages.ATTR_CLASS_DEFINING_CLASSLOADER), CLASS);
 	private static final IAttribute<IMCType> CLASS_INITIATING_CLASSLOADER_V0 = attr("initiatingClassLoader", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_INITIATING_CLASSLOADER), CLASS);
+	private static final IAttribute<IMCType> PARENT_CLASSLOADER_V0 = attr("parentClassLoader", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_PARENT_CLASSLOADER), CLASS);
+	private static final IAttribute<IMCType> CLASSLOADER_V0 = attr("classLoader", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_CLASSLOADER), CLASS);
 
 	public static final IAttribute<IMCClassLoader> CLASS_DEFINING_CLASSLOADER = Attribute
 			.canonicalize(new Attribute<IMCClassLoader>("definingClassLoader", //$NON-NLS-1$
@@ -740,6 +747,44 @@ public final class JdkAttributes {
 				public <U> IMemberAccessor<IMCClassLoader, U> customAccessor(IType<U> type) {
 					// V1 is handled by the standard accessor
 					final IMemberAccessor<IMCType, U> accessorV0 = CLASS_INITIATING_CLASSLOADER_V0.getAccessor(type);
+					if (accessorV0 != null) {
+						return new IMemberAccessor<IMCClassLoader, U>() {
+							@Override
+							public IMCClassLoader getMember(U i) {
+								IMCType type = accessorV0.getMember(i);
+								return new MCClassLoader(type, null);
+							}
+						};
+					}
+					return null;
+				}
+			});
+	public static final IAttribute<IMCClassLoader> PARENT_CLASSLOADER = Attribute
+			.canonicalize(new Attribute<IMCClassLoader>("parentClassLoader", //$NON-NLS-1$
+					Messages.getString(Messages.ATTR_PARENT_CLASSLOADER), null, CLASS_LOADER) {
+				@Override
+				public <U> IMemberAccessor<IMCClassLoader, U> customAccessor(IType<U> type) {
+					// V1 is handled by the standard accessor
+					final IMemberAccessor<IMCType, U> accessorV0 = PARENT_CLASSLOADER_V0.getAccessor(type);
+					if (accessorV0 != null) {
+						return new IMemberAccessor<IMCClassLoader, U>() {
+							@Override
+							public IMCClassLoader getMember(U i) {
+								IMCType type = accessorV0.getMember(i);
+								return new MCClassLoader(type, null);
+							}
+						};
+					}
+					return null;
+				}
+			});
+	public static final IAttribute<IMCClassLoader> CLASSLOADER = Attribute
+			.canonicalize(new Attribute<IMCClassLoader>("classLoader", //$NON-NLS-1$
+					Messages.getString(Messages.ATTR_CLASSLOADER), null, CLASS_LOADER) {
+				@Override
+				public <U> IMemberAccessor<IMCClassLoader, U> customAccessor(IType<U> type) {
+					// V1 is handled by the standard accessor
+					final IMemberAccessor<IMCType, U> accessorV0 = CLASSLOADER_V0.getAccessor(type);
 					if (accessorV0 != null) {
 						return new IMemberAccessor<IMCClassLoader, U>() {
 							@Override
@@ -782,11 +827,58 @@ public final class JdkAttributes {
 					};
 				}
 			});
+	public static final IAttribute<String> PARENT_CLASSLOADER_STRING = Attribute
+			.canonicalize(new Attribute<String>("parentClassLoader.string", //$NON-NLS-1$
+					Messages.getString(Messages.ATTR_PARENT_CLASSLOADER), null, PLAIN_TEXT) {
+				@Override
+				public <U> IMemberAccessor<String, U> customAccessor(IType<U> type) {
+					final IMemberAccessor<IMCClassLoader, U> accessor = PARENT_CLASSLOADER.getAccessor(type);
+					return accessor == null ? null : new IMemberAccessor<String, U>() {
+						@Override
+						public String getMember(U i) {
+							IMCClassLoader cl = accessor.getMember(i);
+							return cl == null ? null : FormatToolkit.getHumanReadable(cl);
+						}
+					};
+				}
+			});
+
+	public static final IAttribute<String> CLASSLOADER_STRING = Attribute
+			.canonicalize(new Attribute<String>("classLoader.string", //$NON-NLS-1$
+					Messages.getString(Messages.ATTR_CLASSLOADER), null, PLAIN_TEXT) {
+				@Override
+				public <U> IMemberAccessor<String, U> customAccessor(IType<U> type) {
+					final IMemberAccessor<IMCClassLoader, U> accessor = CLASSLOADER.getAccessor(type);
+					return accessor == null ? null : new IMemberAccessor<String, U>() {
+						@Override
+						public String getMember(U i) {
+							IMCClassLoader cl = accessor.getMember(i);
+							return cl == null ? null : FormatToolkit.getHumanReadable(cl);
+						}
+					};
+				}
+			});
 
 	public static final IAttribute<IMCType> CLASS_LOADED = attr("loadedClass", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_LOADED), CLASS);
 	public static final IAttribute<IMCType> CLASS_UNLOADED = attr("unloadedClass", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_UNLOADED), CLASS);
+	public static final IAttribute<IMCType> CLASS_DEFINED = attr("definedClass", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_CLASS_DEFINED), CLASS);
+	public static final IAttribute<IQuantity> ANONYMOUS_BLOCK_SIZE = attr("anonymousBlockSize", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_ANONYMOUS_BLOCK_SIZE), MEMORY);
+	public static final IAttribute<IQuantity> ANONYMOUS_CHUNK_SIZE = attr("anonymousChunkSize", // $NON-NLS-1$ 
+			Messages.getString(Messages.ATTR_ANONYMOUS_CHUNK_SIZE), MEMORY);
+	public static final IAttribute<IQuantity> ANONYMOUS_CLASS_COUNT = attr("anonymousClassCount", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_ANONYMOUS_CLASS_COUNT), NUMBER);
+	public static final IAttribute<IQuantity> BLOCK_SIZE = attr("blockSize", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_BLOCK_SIZE), MEMORY);
+	public static final IAttribute<IQuantity> CHUNK_SIZE = attr("chunkSize", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_CHUNK_SIZE), MEMORY);
+	public static final IAttribute<IQuantity> CLASS_COUNT = attr("classCount", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_CLASS_COUNT), NUMBER);
+	public static final IAttribute<IQuantity> CLASS_LOADER_DATA = attr("classLoaderData", // $NON-NLS-1$
+			Messages.getString(Messages.ATTR_CLASSLOADER_DATA), ADDRESS);	
 
 	public static final IAttribute<IQuantity> COMPILER_COMPILATION_ID = attr("compileId", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_COMPILER_COMPILATION_ID), NUMBER);
@@ -900,7 +992,7 @@ public final class JdkAttributes {
 	 *            the content type of the new attribute
 	 * @return the wrapped attribute for the specified code heap and attribute
 	 */
-	private static final Attribute<IQuantity> createCodeHeapAttribute(
+	private static Attribute<IQuantity> createCodeHeapAttribute(
 		final IAttribute<IQuantity> attribute, final String codeHeap, String identifier, String name,
 		String description, ContentType<IQuantity> contentType) {
 		return new Attribute<IQuantity>(identifier, name, description, contentType) {

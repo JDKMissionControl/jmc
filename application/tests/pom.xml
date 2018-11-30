@@ -110,11 +110,14 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<appArgLine>-nl en</appArgLine>
 					<includes>${test.includes}</includes>
-					<excludes>${test.excludes}</excludes>
+					<excludes>
+						<exclude>${test.excludes}</exclude>
+						<exclude>${jfr.tests}</exclude>
+					</excludes>
 					<failIfNoTests>${fail.if.no.tests}</failIfNoTests>
 				</configuration>
 			</plugin>

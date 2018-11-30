@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The contents of this file are subject to the terms of either the Universal Permissive License
@@ -10,17 +10,17 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
  * and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
  * conditions and the following disclaimer in the documentation and/or other materials provided with
  * the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
  * endorse or promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
@@ -36,14 +36,18 @@ import org.openjdk.jmc.common.item.IType;
 import org.openjdk.jmc.common.item.ItemFilters;
 
 /**
- * Contains type IDs for events that are produced by JDK 9. These strings can be compared to the
+ * Contains type IDs for events that are produced by JDK 11+. These strings can be compared to the
  * result of {@link IType#getIdentifier()} and for creating filters with
  * {@link ItemFilters#type(String)}.
  */
 @SuppressWarnings("nls")
 public final class JdkTypeIDs {
 
-	private final static String PREFIX = "com.oracle.jdk.";
+	/*
+	 * Whenever the PREFIX is changed, corresponding changes must be made in
+	 * application/org.openjdk.jmc.flightrecorder.ui/defaultPages.xml
+	 */
+	private final static String PREFIX = "jdk.";
 
 	public static final String CPU_LOAD = PREFIX + "CPULoad";
 	public static final String EXECUTION_SAMPLE = PREFIX + "ExecutionSample";
@@ -59,6 +63,7 @@ public final class JdkTypeIDs {
 	public static final String ALLOC_INSIDE_TLAB = PREFIX + "ObjectAllocationInNewTLAB";
 	public static final String ALLOC_OUTSIDE_TLAB = PREFIX + "ObjectAllocationOutsideTLAB";
 	public static final String VM_INFO = PREFIX + "JVMInformation";
+	public static final String CLASS_DEFINE = PREFIX + "ClassDefine";
 	public static final String CLASS_LOAD = PREFIX + "ClassLoad";
 	public static final String CLASS_UNLOAD = PREFIX + "ClassUnload";
 	public static final String CLASS_LOAD_STATISTICS = PREFIX + "ClassLoadingStatistics";
@@ -139,6 +144,7 @@ public final class JdkTypeIDs {
 	public static final String JAVA_THREAD_END = PREFIX + "ThreadEnd";
 
 	public static final String VM_OPERATIONS = PREFIX + "ExecuteVMOperation";
+	public static final String VM_SHUTDOWN = PREFIX + "Shutdown";
 
 	public static final String THREAD_STATISTICS = PREFIX + "JavaThreadStatistics";
 	public static final String CONTEXT_SWITCH_RATE = PREFIX + "ThreadContextSwitchRate";
@@ -151,7 +157,7 @@ public final class JdkTypeIDs {
 	public static final String GC_COLLECTOR_OLD_GARBAGE_COLLECTION = PREFIX + "OldGarbageCollection";
 	public static final String GC_COLLECTOR_PAROLD_GARBAGE_COLLECTION = PREFIX + "ParallelOldGarbageCollection";
 	public static final String GC_COLLECTOR_YOUNG_GARBAGE_COLLECTION = PREFIX + "YoungGarbageCollection";
-	public static final String GC_DETAILED_ALLOCATION_REQUIRING_GC = PREFIX + "AllocationRequiringGc";
+	public static final String GC_DETAILED_ALLOCATION_REQUIRING_GC = PREFIX + "AllocationRequiringGC";
 	public static final String GC_DETAILED_EVACUATION_FAILED = PREFIX + "EvacuationFailed";
 	public static final String GC_DETAILED_EVACUATION_INFO = PREFIX + "EvacuationInformation";
 	public static final String GC_DETAILED_OBJECT_COUNT_AFTER_GC = PREFIX + "ObjectCountAfterGC";
@@ -164,6 +170,8 @@ public final class JdkTypeIDs {
 	public static final String GC_G1_EVACUATION_YOUNG_STATS = PREFIX + "G1EvacuationYoungStatistics";
 	public static final String GC_G1_EVACUATION_OLD_STATS = PREFIX + "G1EvacuationOldStatistics";
 	public static final String GC_G1_BASIC_IHOP = PREFIX + "G1BasicIHOP";
+	public static final String GC_G1_HEAP_REGION_TYPE_CHANGE = PREFIX + "G1HeapRegionTypeChange";
+	public static final String GC_G1_HEAP_REGION_INFORMATION = PREFIX + "G1HeapRegionInformation";
 	public static final String BIASED_LOCK_SELF_REVOCATION = PREFIX + "BiasedLockSelfRevocation";
 	public static final String BIASED_LOCK_REVOCATION = PREFIX + "BiasedLockRevocation";
 	public static final String BIASED_LOCK_CLASS_REVOCATION = PREFIX + "BiasedLockClassRevocation";
