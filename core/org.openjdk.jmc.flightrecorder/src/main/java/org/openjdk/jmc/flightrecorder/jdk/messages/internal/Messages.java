@@ -314,6 +314,7 @@ public class Messages {
 	public static final String ATTR_JAVA_ARGUMENTS = "ATTR_JAVA_ARGUMENTS"; //$NON-NLS-1$
 	public static final String ATTR_JVM_ARGUMENTS = "ATTR_JVM_ARGUMENTS"; //$NON-NLS-1$
 	public static final String ATTR_JVM_NAME = "ATTR_JVM_NAME"; //$NON-NLS-1$
+	public static final String ATTR_JVM_PID = "ATTR_JVM_PID"; //$NON-NLS-1$
 	public static final String ATTR_JVM_START_TIME = "ATTR_JVM_START_TIME"; //$NON-NLS-1$
 	public static final String ATTR_JVM_SYSTEM = "ATTR_JVM_SYSTEM"; //$NON-NLS-1$
 	public static final String ATTR_JVM_SYSTEM_DESC = "ATTR_JVM_SYSTEM_DESC"; //$NON-NLS-1$
@@ -443,9 +444,9 @@ public class Messages {
 	public static final String ATTR_YOUNG_COLLECTOR_DESC = "ATTR_YOUNG_COLLECTOR_DESC"; //$NON-NLS-1$
 	public static final String ATTR_YOUNG_GENERATION_MAX_SIZE = "ATTR_YOUNG_GENERATION_MAX_SIZE"; //$NON-NLS-1$
 	public static final String ATTR_YOUNG_GENERATION_MIN_SIZE = "ATTR_YOUNG_GENERATION_MIN_SIZE"; //$NON-NLS-1$
-	public static final String ATTR_SHUTDOWN_REASON = "ATTR_SHUTDOWN_REASON"; // $NON-NLS-1$
-	public static final String ATTR_SHUTDOWN_REASON_DESC = "ATTR_SHUTDOWN_REASON_DESC"; // $NON-NLS-1$
-	public static final String ATTR_SHUTDOWN_TIME = "ATTR_SHUTDOWN_TIME"; // $NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_REASON = "ATTR_SHUTDOWN_REASON"; //$NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_REASON_DESC = "ATTR_SHUTDOWN_REASON_DESC"; //$NON-NLS-1$
+	public static final String ATTR_SHUTDOWN_TIME = "ATTR_SHUTDOWN_TIME"; //$NON-NLS-1$
 
 	private Messages() {
 	}

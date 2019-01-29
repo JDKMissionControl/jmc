@@ -38,7 +38,7 @@ public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.openjdk.jmc.flightrecorder.ext.jfx.messages"; //$NON-NLS-1$
 
 	public static String JfxConstants_INPUT_TYPE;
-	public static String JfxConstants_PHASE;
+	public static String JfxConstants_PHASE_NAME;
 	public static String JfxConstants_PULSE_ID;
 	public static String JfxConstants_PULSE_START;
 	public static String JfxConstants_PULSE_START_DESCRIPTION;

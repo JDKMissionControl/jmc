@@ -441,6 +441,8 @@ public final class JdkAttributes {
 			Messages.getString(Messages.ATTR_JVM_START_TIME), TIMESTAMP);
 	public static final IAttribute<String> JVM_NAME = attr("jvmName", Messages.getString(Messages.ATTR_JVM_NAME), //$NON-NLS-1$
 			PLAIN_TEXT);
+	public static final IAttribute<IQuantity> JVM_PID = attr("pid", Messages.getString(Messages.ATTR_JVM_PID), //$NON-NLS-1$
+			NUMBER);
 	public static final IAttribute<String> JVM_VERSION = attr("jvmVersion", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_JVM_VERSION), PLAIN_TEXT);
 	public static final IAttribute<String> JVM_ARGUMENTS = attr("jvmArguments", //$NON-NLS-1$
@@ -701,7 +703,7 @@ public final class JdkAttributes {
 			Messages.getString(Messages.ATTR_DUMP_REASON_RECORDING_ID),
 			Messages.getString(Messages.ATTR_DUMP_REASON_RECORDING_ID_DESC), PLAIN_TEXT);
 	
-	public static final IAttribute<String> SHUTDOWN_REASON = attr("reason", // $NON-NLS-1$
+	public static final IAttribute<String> SHUTDOWN_REASON = attr("reason", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_SHUTDOWN_REASON),
 			Messages.getString(Messages.ATTR_SHUTDOWN_REASON_DESC), PLAIN_TEXT);
 
@@ -716,9 +718,9 @@ public final class JdkAttributes {
 			Messages.getString(Messages.ATTR_CLASS_DEFINING_CLASSLOADER), CLASS);
 	private static final IAttribute<IMCType> CLASS_INITIATING_CLASSLOADER_V0 = attr("initiatingClassLoader", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_INITIATING_CLASSLOADER), CLASS);
-	private static final IAttribute<IMCType> PARENT_CLASSLOADER_V0 = attr("parentClassLoader", // $NON-NLS-1$
+	private static final IAttribute<IMCType> PARENT_CLASSLOADER_V0 = attr("parentClassLoader", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_PARENT_CLASSLOADER), CLASS);
-	private static final IAttribute<IMCType> CLASSLOADER_V0 = attr("classLoader", // $NON-NLS-1$
+	private static final IAttribute<IMCType> CLASSLOADER_V0 = attr("classLoader", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASSLOADER), CLASS);
 
 	public static final IAttribute<IMCClassLoader> CLASS_DEFINING_CLASSLOADER = Attribute
@@ -863,21 +865,21 @@ public final class JdkAttributes {
 			Messages.getString(Messages.ATTR_CLASS_LOADED), CLASS);
 	public static final IAttribute<IMCType> CLASS_UNLOADED = attr("unloadedClass", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_UNLOADED), CLASS);
-	public static final IAttribute<IMCType> CLASS_DEFINED = attr("definedClass", // $NON-NLS-1$
+	public static final IAttribute<IMCType> CLASS_DEFINED = attr("definedClass", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_DEFINED), CLASS);
-	public static final IAttribute<IQuantity> ANONYMOUS_BLOCK_SIZE = attr("anonymousBlockSize", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> ANONYMOUS_BLOCK_SIZE = attr("anonymousBlockSize", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_ANONYMOUS_BLOCK_SIZE), MEMORY);
-	public static final IAttribute<IQuantity> ANONYMOUS_CHUNK_SIZE = attr("anonymousChunkSize", // $NON-NLS-1$ 
+	public static final IAttribute<IQuantity> ANONYMOUS_CHUNK_SIZE = attr("anonymousChunkSize", //$NON-NLS-1$ 
 			Messages.getString(Messages.ATTR_ANONYMOUS_CHUNK_SIZE), MEMORY);
-	public static final IAttribute<IQuantity> ANONYMOUS_CLASS_COUNT = attr("anonymousClassCount", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> ANONYMOUS_CLASS_COUNT = attr("anonymousClassCount", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_ANONYMOUS_CLASS_COUNT), NUMBER);
-	public static final IAttribute<IQuantity> BLOCK_SIZE = attr("blockSize", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> BLOCK_SIZE = attr("blockSize", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_BLOCK_SIZE), MEMORY);
-	public static final IAttribute<IQuantity> CHUNK_SIZE = attr("chunkSize", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> CHUNK_SIZE = attr("chunkSize", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CHUNK_SIZE), MEMORY);
-	public static final IAttribute<IQuantity> CLASS_COUNT = attr("classCount", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> CLASS_COUNT = attr("classCount", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASS_COUNT), NUMBER);
-	public static final IAttribute<IQuantity> CLASS_LOADER_DATA = attr("classLoaderData", // $NON-NLS-1$
+	public static final IAttribute<IQuantity> CLASS_LOADER_DATA = attr("classLoaderData", //$NON-NLS-1$
 			Messages.getString(Messages.ATTR_CLASSLOADER_DATA), ADDRESS);	
 
 	public static final IAttribute<IQuantity> COMPILER_COMPILATION_ID = attr("compileId", //$NON-NLS-1$

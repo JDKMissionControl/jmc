@@ -34,10 +34,10 @@
 <feature
       id="org.openjdk.jmc.feature.flightrecorder"
       label="%name"
-      version="7.0.0.qualifier"
+      version="7.1.0.qualifier"
       provider-name="%provider"
       license-feature="org.openjdk.jmc.feature.license"
-      license-feature-version="7.0.0.qualifier">
+      license-feature-version="7.1.0.qualifier">
 
    <description url="%descriptionUrl">
       %description
@@ -88,13 +88,6 @@
 
    <plugin
          id="org.openjdk.jmc.flightrecorder.configuration"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.openjdk.jmc.javafx.osgi"
          download-size="0"
          install-size="0"
          version="0.0.0"
