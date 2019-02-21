@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019, Oracle and/or its affiliates. All rights reserved.
  * 
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -75,7 +75,6 @@ import org.openjdk.jmc.rjmx.IConnectionDescriptor;
 import org.openjdk.jmc.rjmx.IServerDescriptor;
 import org.openjdk.jmc.rjmx.RJMXPlugin;
 import org.openjdk.jmc.rjmx.services.IOperation;
-import org.openjdk.jmc.rjmx.services.internal.MBeanOperationsWrapper;
 import org.openjdk.jmc.rjmx.subscription.IMBeanHelperService;
 import org.openjdk.jmc.rjmx.subscription.IMBeanServerChangeListener;
 import org.openjdk.jmc.rjmx.subscription.IMRIService;
@@ -577,8 +576,8 @@ public class RJMXConnection implements Closeable, IMBeanHelperService {
 	 *             operations.
 	 */
 	public Collection<IOperation> getOperations(ObjectName mbean) throws Exception {
-		MBeanServerConnection srv = ensureConnected();
-		return new MBeanOperationsWrapper(mbean, srv.getMBeanInfo(mbean).getOperations(), srv);
+		MBeanServerConnection connection = ensureConnected();
+		return MBeanOperationWrapper.createOperations(connection, mbean, connection.getMBeanInfo(mbean).getOperations());
 	}
 
 	IMRIService getMRIService() {
