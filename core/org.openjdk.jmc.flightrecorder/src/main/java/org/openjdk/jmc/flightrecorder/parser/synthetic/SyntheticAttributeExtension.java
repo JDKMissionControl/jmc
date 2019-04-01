@@ -93,6 +93,16 @@ public class SyntheticAttributeExtension implements IParserExtension {
 						struct[i] = vf;
 					}
 					dataStructure = Arrays.asList(struct);
+				} else if (JdkTypeIDs.NATIVE_METHOD_SAMPLE.equals(identifier)) {
+					ValueField[] struct = new ValueField[dataStructure.size()];
+					for (int i = 0; i < struct.length; i++) {
+						ValueField vf = dataStructure.get(i);
+						if (vf.matches(EXECUTION_SAMPLES_THREAD)) {
+							vf = new ValueField(EVENT_THREAD);
+						}
+						struct[i] = vf;
+					}
+					dataStructure = Arrays.asList(struct);
 				} else if (JdkTypeIDs.THREAD_ALLOCATION_STATISTICS.equals(identifier)) {
 					ValueField[] struct = new ValueField[dataStructure.size()];
 					for (int i = 0; i < struct.length; i++) {
