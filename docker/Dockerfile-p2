@@ -1,0 +1,10 @@
+FROM openjdk:11.0.2-jdk-stretch
+
+
+RUN apt-get update && apt-get install -y maven
+
+COPY releng /jmc/releng/
+
+WORKDIR /jmc/releng/third-party
+RUN mvn p2:site
+CMD mvn jetty:run
