@@ -75,7 +75,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<tycho.version>1.3.0</tycho.version>
+		<tycho.version>1.4.0</tycho.version>
 		<maven.buildnumber.version>1.4</maven.buildnumber.version>
 		<maven.deploy.version>2.8.2</maven.deploy.version>
 		<maven.directory.version>0.2</maven.directory.version>
@@ -83,11 +83,13 @@
 		<maven.resources.version>3.0.2</maven.resources.version>
 		<spotbugs.version>3.1.10</spotbugs.version>
 		<buildId>${user.name}</buildId>
-		<!-- Critical Patch Update Id. Used in a release where _only_ the embedded
-		     JDK has changed. Set to .[cpu sequence number], e.g. .1 -->
-		<patchId></patchId>
-		<!-- The version of the JDK to embed, e.g. 12.0.2 -->
+		<!-- The version of the JDK embedded. When not embedding a JDK (this is 
+			usually the case), leave this empty. If embedding a JDK, include a comma 
+			and space, e.g. <jdkVersion>, JDK 12.0.2</jdkVersion> -->
 		<jdkVersion></jdkVersion>
+		<!-- Critical Patch Update Id. Used in a release where _only_ the embedded
+			JDK has changed. Set to .[cpu sequence number], e.g. .1 -->
+		<patchId></patchId>
 		<scmConnection>scm:hg:http://hg.openjdk.java.net/jmc/jmc</scmConnection>
 	</properties>
 	<scm>
@@ -101,7 +103,7 @@
 	</distributionManagement>
 	<profiles>
 		<profile>
-			<id>photon</id>
+			<id>2019-03</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -115,7 +117,7 @@
 							<target>
 								<artifact>
 									<groupId>org.openjdk.jmc</groupId>
-									<artifactId>platform-definition-photon</artifactId>
+									<artifactId>platform-definition-2019-03</artifactId>
 									<version>7.1.0-SNAPSHOT</version>
 								</artifact>
 							</target>
@@ -125,7 +127,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>oxygen</id>
+			<id>2018-12</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -136,7 +138,7 @@
 							<target>
 								<artifact>
 									<groupId>org.openjdk.jmc</groupId>
-									<artifactId>platform-definition-oxygen</artifactId>
+									<artifactId>platform-definition-2018-12</artifactId>
 									<version>7.1.0-SNAPSHOT</version>
 								</artifact>
 							</target>
@@ -158,6 +160,27 @@
 								<artifact>
 									<groupId>org.openjdk.jmc</groupId>
 									<artifactId>platform-definition-2018-09</artifactId>
+									<version>7.1.0-SNAPSHOT</version>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>photon</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho.version}</version>
+						<configuration>
+							<target>
+								<artifact>
+									<groupId>org.openjdk.jmc</groupId>
+									<artifactId>platform-definition-photon</artifactId>
 									<version>7.1.0-SNAPSHOT</version>
 								</artifact>
 							</target>
