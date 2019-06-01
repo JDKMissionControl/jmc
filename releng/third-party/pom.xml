@@ -80,7 +80,7 @@
 								<!-- specify third party non-OSGi dependencies here -->
 								<!-- groupId:artifactId:version -->
 								<artifact>
-									<id>org.twitter4j:twitter4j-core:4.0.6</id>
+									<id>org.twitter4j:twitter4j-core:4.0.7</id>
 								</artifact>
 								<artifact>
 									<id>com.sun.mail:jakarta.mail:1.6.3</id>
@@ -97,7 +97,7 @@
 									<id>javax.mail:dsn:1.4</id>
 								</artifact>
 								<artifact>
-									<id>org.owasp.encoder:encoder:1.2.1</id>
+									<id>org.owasp.encoder:encoder:1.2.2</id>
 								</artifact>
 								<artifact>
 									<id>org.openjfx:javafx-base:jar:mac:11.0.1</id>

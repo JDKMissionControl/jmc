@@ -260,7 +260,7 @@ to a jury trial in any resulting litigation.
 
 
 %% The following notice is provided with respect to OWASP Java 
-Encoder Project 1.2.1 which may be included with this product.
+Encoder Project 1.2.2 which may be included with this product.
 
 Copyright (c) 2015 Jeff Ichnowski
 All rights reserved.
@@ -297,7 +297,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-%% The following notice is provided with respect to Twitter4J 4.0.6,
+%% The following notice is provided with respect to Twitter4J 4.0.7,
 which may be included with this product.
 
 
