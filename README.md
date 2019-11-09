@@ -1,3 +1,5 @@
+# This mirror is deprecated - please start using https://github.com/openjdk/jmc instead!
+
 # Mission Control
 
 Mission Control is an open source production time profiling and diagnostics tool for Java.
